@@ -13,7 +13,7 @@ namespace Tests
         }
 
         [Test]
-        public void Reels_same_order_return_100()
+        public void Reels_same_order_three_Wild_return_100()
         {
             var slotMachine = new SlotMachine();
 
@@ -48,7 +48,6 @@ namespace Tests
 
     public class SlotMachine
     {
-        //        private int reel1 =
         public int GetSlotScore(List<ReelItem[]> reelItems, int[] spinIndexes)
         {
             for (var reelNum = 0; reelNum < spinIndexes.Length; reelNum++)
