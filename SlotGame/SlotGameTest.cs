@@ -72,6 +72,13 @@ namespace Tests
                 slotReelItems.Add(reelItem);
             }
 
+            var slotScore = GetPrizeScore(slotReelItems);
+
+            return slotScore;
+        }
+
+        private static int GetPrizeScore(List<ReelItem> slotReelItems)
+        {
             const int itemRepeatTimes = 3;
             var prizePool = new Dictionary<List<ReelItem>, int>(new ListComparer<ReelItem>())
             {
@@ -79,10 +86,7 @@ namespace Tests
                 { Enumerable.Repeat(ReelItem.Star, itemRepeatTimes).ToList(), 90 }
             };
 
-            var slotScore = 0;
-            slotScore = prizePool[slotReelItems];
-
-            return slotScore;
+            return prizePool[slotReelItems];
         }
 
         // reference: https://stackoverflow.com/questions/10020541/c-sharp-list-as-dictionary-key
