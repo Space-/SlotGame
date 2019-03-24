@@ -64,17 +64,23 @@ namespace Tests
     {
         public int GetSlotScore(List<ReelItem[]> reelItems, int[] spinIndexes, ReelItem prizeReelItem)
         {
-            var slotReelItems = new List<ReelItem>();
+            var slotReelItems = GetSlotResultItems(reelItems, spinIndexes);
+            var slotScore = GetPrizeScore(slotReelItems);
+
+            return slotScore;
+        }
+
+        private static List<ReelItem> GetSlotResultItems(List<ReelItem[]> reelItems, int[] spinIndexes)
+        {
+            var getSlotResultItems = new List<ReelItem>();
             for (var reelNum = 0; reelNum < spinIndexes.Length; reelNum++)
             {
                 var spinItemIndex = spinIndexes[reelNum];
                 var reelItem = reelItems[reelNum][spinItemIndex];
-                slotReelItems.Add(reelItem);
+                getSlotResultItems.Add(reelItem);
             }
 
-            var slotScore = GetPrizeScore(slotReelItems);
-
-            return slotScore;
+            return getSlotResultItems;
         }
 
         private static int GetPrizeScore(List<ReelItem> slotReelItems)
