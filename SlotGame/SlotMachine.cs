@@ -32,7 +32,8 @@ namespace SlotGameTest.cs
             var prizePool = new Dictionary<List<ReelItem>, int>(new ListComparer<ReelItem>())
             {
                 { Enumerable.Repeat(ReelItem.Wild, itemRepeatTimes).ToList(), 100 },
-                { Enumerable.Repeat(ReelItem.Star, itemRepeatTimes).ToList(), 90 }
+                { Enumerable.Repeat(ReelItem.Star, itemRepeatTimes).ToList(), 90 },
+                { Enumerable.Repeat(ReelItem.Bell, itemRepeatTimes).ToList(), 80 },
             };
 
             return prizePool[slotReelItems];
