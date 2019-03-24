@@ -5,7 +5,7 @@ namespace SlotGameTest.cs
 {
     public class SlotMachine
     {
-        public int GetSlotScore(List<ReelItem[]> reelItems, int[] spinIndexes, ReelItem prizeReelItem)
+        public int GetSlotScore(List<ReelItem[]> reelItems, int[] spinIndexes)
         {
             var slotReelItems = GetSlotResultItems(reelItems, spinIndexes);
             var slotScore = GetPrizeScore(slotReelItems);

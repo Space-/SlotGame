@@ -22,7 +22,7 @@ namespace SlotGameTest.cs
             var reelItems = new List<ReelItem[]> { reel, reel, reel };
             int[] spinIndexes = { 0, 0, 0 };
 
-            var slotScore = slotMachine.GetSlotScore(reelItems, spinIndexes, ReelItem.Wild);
+            var slotScore = slotMachine.GetSlotScore(reelItems, spinIndexes);
             Assert.AreEqual(100, slotScore);
         }
 
@@ -36,7 +36,7 @@ namespace SlotGameTest.cs
             var reelItems = new List<ReelItem[]> { reel, reel, reel };
             int[] spinIndexes = { 1, 1, 1 };
 
-            var slotScore = slotMachine.GetSlotScore(reelItems, spinIndexes, ReelItem.Star);
+            var slotScore = slotMachine.GetSlotScore(reelItems, spinIndexes);
             Assert.AreEqual(90, slotScore);
         }
 
