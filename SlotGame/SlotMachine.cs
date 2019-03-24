@@ -46,6 +46,7 @@ namespace SlotGameTest.cs
                 {new List<ReelItem>(){ReelItem.Bell, ReelItem.Bell, ReelItem.Wild},  16},
                 {new List<ReelItem>(){ReelItem.Shell, ReelItem.Shell, ReelItem.Wild},  14},
                 {new List<ReelItem>(){ReelItem.Seven, ReelItem.Seven, ReelItem.Wild},  12},
+                {new List<ReelItem>(){ReelItem.Cherry, ReelItem.Cherry, ReelItem.Wild},  10},
             };
 
             return prizePool[slotReelItems];
