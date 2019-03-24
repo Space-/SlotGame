@@ -11,6 +11,7 @@ namespace SlotGameTest.cs
         Bar,
         King,
         Queen,
-        Jack
+        Jack,
+        NoThisItem
     }
 }
