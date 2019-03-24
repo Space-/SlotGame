@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Tests
@@ -15,9 +17,9 @@ namespace Tests
         {
             var slotMaching = new SlotMachine();
 
-            string[] reel = { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" };
+            var reel = Enum.GetValues(typeof(ReelItem)).Cast<ReelItem>().ToArray();
 
-            var reelItems = new List<string[]> { reel, reel, reel };
+            var reelItems = new List<ReelItem[]> { reel, reel, reel };
             int[] spinIndexes = { 0, 0, 0 };
 
             var slotScore = slotMaching.GetSlotScore(reelItems, spinIndexes);
@@ -25,15 +27,29 @@ namespace Tests
         }
     }
 
+    public enum ReelItem
+    {
+        Wild,
+        Star,
+        Bell,
+        Shell,
+        Seven,
+        Cherry,
+        Bar,
+        King,
+        Queen,
+        Jack
+    }
+
     public class SlotMachine
     {
         //        private int reel1 =
-        public int GetSlotScore(List<string[]> reelItems, int[] spinIndexes)
+        public int GetSlotScore(List<ReelItem[]> reelItems, int[] spinIndexes)
         {
             for (var reelNum = 0; reelNum < spinIndexes.Length; reelNum++)
             {
                 var spinItemIndex = spinIndexes[reelNum];
-                if (reelItems[reelNum][spinItemIndex] != "Wild")
+                if (reelItems[reelNum][spinItemIndex] != ReelItem.Wild)
                 {
                     return 0;
                 }
