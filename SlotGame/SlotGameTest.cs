@@ -94,6 +94,13 @@ namespace SlotGameTest.cs
             GameResultShouldBe(18);
         }
 
+        [Test]
+        public void Reels_same_order_two_Bell_one_Wild_return_16()
+        {
+            _spinIndexes = new[] { (int)ReelItem.Bell, (int)ReelItem.Wild, (int)ReelItem.Bell };
+            GameResultShouldBe(16);
+        }
+
         private static void GameResultShouldBe(int expected)
         {
             var slotMachine = new SlotMachine();
