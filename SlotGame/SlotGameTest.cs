@@ -22,22 +22,25 @@ namespace SlotGameTest.cs
             var reelItems = new List<ReelItem[]> { reel, reel, reel };
             int[] spinIndexes = { 0, 0, 0 };
 
-            var slotScore = slotMachine.GetSlotScore(reelItems, spinIndexes);
-            Assert.AreEqual(100, slotScore);
+            GameResultShouldBe(100, reelItems, spinIndexes);
         }
 
         [Test]
         public void Reels_same_order_three_Star_return_90()
         {
-            var slotMachine = new SlotMachine();
-
             var reel = GetReelItems();
 
             var reelItems = new List<ReelItem[]> { reel, reel, reel };
             int[] spinIndexes = { 1, 1, 1 };
 
+            GameResultShouldBe(90, reelItems, spinIndexes);
+        }
+
+        private static void GameResultShouldBe(int expected, List<ReelItem[]> reelItems, int[] spinIndexes)
+        {
+            var slotMachine = new SlotMachine();
             var slotScore = slotMachine.GetSlotScore(reelItems, spinIndexes);
-            Assert.AreEqual(90, slotScore);
+            Assert.AreEqual(expected, slotScore);
         }
 
         private static ReelItem[] GetReelItems()
