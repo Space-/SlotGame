@@ -1,0 +1,1 @@
+Topic from: https://www.codewars.com/kata/fruit-machine/train/csharp
