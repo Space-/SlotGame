@@ -39,6 +39,7 @@ namespace SlotGameTest.cs
                 { Enumerable.Repeat(ReelItem.Cherry, itemRepeatTimes).ToList(), 50 },
                 { Enumerable.Repeat(ReelItem.Bar, itemRepeatTimes).ToList(), 40 },
                 { Enumerable.Repeat(ReelItem.King, itemRepeatTimes).ToList(), 30 },
+                { Enumerable.Repeat(ReelItem.Queen, itemRepeatTimes).ToList(), 20 },
             };
 
             return prizePool[slotReelItems];
