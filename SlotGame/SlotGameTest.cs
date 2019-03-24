@@ -143,6 +143,13 @@ namespace SlotGameTest.cs
             GameResultShouldBe(4);
         }
 
+        [Test]
+        public void Reels_same_order_two_Jack_one_Wild_return_2()
+        {
+            _spinIndexes = new[] { (int)ReelItem.Jack, (int)ReelItem.Wild, (int)ReelItem.Jack };
+            GameResultShouldBe(2);
+        }
+
         private static void GameResultShouldBe(int expected)
         {
             var slotMachine = new SlotMachine();
