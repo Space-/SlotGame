@@ -80,11 +80,19 @@ namespace SlotGameTest.cs
             GameResultShouldBe(20);
         }
 
-        [Test]
+        [Test]¡F
+
         public void Reels_same_order_three_Queen_return_10()
         {
             _spinIndexes = new[] { 9, 9, 9 };
             GameResultShouldBe(10);
+        }
+
+        [Test]
+        public void Reels_same_order_two_Star_one_Wild_return_18()
+        {
+            _spinIndexes = new[] { (int)ReelItem.Star, (int)ReelItem.Wild, (int)ReelItem.Star };
+            GameResultShouldBe(18);
         }
 
         private static void GameResultShouldBe(int expected)

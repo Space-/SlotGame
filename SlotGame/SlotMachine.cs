@@ -41,6 +41,8 @@ namespace SlotGameTest.cs
                 { Enumerable.Repeat(ReelItem.King, itemRepeatTimes).ToList(), 30 },
                 { Enumerable.Repeat(ReelItem.Queen, itemRepeatTimes).ToList(), 20 },
                 { Enumerable.Repeat(ReelItem.Jack, itemRepeatTimes).ToList(), 10 },
+
+                {new List<ReelItem>(){ReelItem.Star, ReelItem.Star, ReelItem.Wild},  18},
             };
 
             return prizePool[slotReelItems];
@@ -51,7 +53,7 @@ namespace SlotGameTest.cs
         {
             public bool Equals(List<T> x, List<T> y)
             {
-                return x.SequenceEqual(y);
+                return x.OrderBy(t => t).SequenceEqual(y.OrderBy(t => t));
             }
 
             public int GetHashCode(List<T> obj)
