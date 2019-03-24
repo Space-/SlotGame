@@ -66,6 +66,13 @@ namespace SlotGameTest.cs
             GameResultShouldBe(40);
         }
 
+        [Test]
+        public void Reels_same_order_three_King_return_30()
+        {
+            _spinIndexes = new[] { 7, 7, 7 };
+            GameResultShouldBe(30);
+        }
+
         private static void GameResultShouldBe(int expected)
         {
             var slotMachine = new SlotMachine();
