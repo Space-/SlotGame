@@ -7,14 +7,14 @@ namespace SlotGameTest.cs
 {
     public class SlotGameTest
     {
-        private static List<ReelItem[]> _reelItems;
+        private static List<ReelItem[]> _threeSameReelItems;
         private static int[] _spinIndexes;
 
         [SetUp]
         public void InitSlotMachineReels()
         {
             var reel = GetReelItems();
-            _reelItems = new List<ReelItem[]> { reel, reel, reel };
+            _threeSameReelItems = new List<ReelItem[]> { reel, reel, reel };
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace SlotGameTest.cs
         private static void GameResultShouldBe(int expected)
         {
             var slotMachine = new SlotMachine();
-            var slotScore = slotMachine.GetSlotScore(_reelItems, _spinIndexes);
+            var slotScore = slotMachine.GetSlotScore(_threeSameReelItems, _spinIndexes);
             Assert.AreEqual(expected, slotScore);
         }
 
