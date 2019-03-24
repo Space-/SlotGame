@@ -64,28 +64,44 @@ namespace Tests
     {
         public int GetSlotScore(List<ReelItem[]> reelItems, int[] spinIndexes, ReelItem prizeReelItem)
         {
+            var slotReelItems = new List<ReelItem>();
             for (var reelNum = 0; reelNum < spinIndexes.Length; reelNum++)
             {
                 var spinItemIndex = spinIndexes[reelNum];
-                if (reelItems[reelNum][spinItemIndex] != prizeReelItem)
-                {
-                    return 0;
-                }
+                var reelItem = reelItems[reelNum][spinItemIndex];
+                slotReelItems.Add(reelItem);
             }
+
+            const int itemRepeatTimes = 3;
+            var prizePool = new Dictionary<List<ReelItem>, int>(new ListComparer<ReelItem>())
+            {
+                { Enumerable.Repeat(ReelItem.Wild, itemRepeatTimes).ToList(), 100 },
+                { Enumerable.Repeat(ReelItem.Star, itemRepeatTimes).ToList(), 90 }
+            };
 
             var slotScore = 0;
-            switch (prizeReelItem)
-            {
-                case ReelItem.Wild:
-                    slotScore = 100;
-                    break;
-
-                case ReelItem.Star:
-                    slotScore = 90;
-                    break;
-            }
+            slotScore = prizePool[slotReelItems];
 
             return slotScore;
+        }
+
+        // reference: https://stackoverflow.com/questions/10020541/c-sharp-list-as-dictionary-key
+        private class ListComparer<T> : IEqualityComparer<List<T>>
+        {
+            public bool Equals(List<T> x, List<T> y)
+            {
+                return x.SequenceEqual(y);
+            }
+
+            public int GetHashCode(List<T> obj)
+            {
+                int hashcode = 0;
+                foreach (T t in obj)
+                {
+                    hashcode ^= t.GetHashCode();
+                }
+                return hashcode;
+            }
         }
     }
 }
