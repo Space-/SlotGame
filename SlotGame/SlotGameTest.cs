@@ -11,27 +11,23 @@ namespace SlotGameTest.cs
         private static int[] _spinIndexes;
 
         [SetUp]
-        public void SetUp()
+        public void InitSlotMachineReels()
         {
+            var reel = GetReelItems();
+            _reelItems = new List<ReelItem[]> { reel, reel, reel };
         }
 
         [Test]
         public void Reels_same_order_three_Wild_return_100()
         {
-            var reel = GetReelItems();
-            _reelItems = new List<ReelItem[]> { reel, reel, reel };
             _spinIndexes = new[] { 0, 0, 0 };
-
             GameResultShouldBe(100);
         }
 
         [Test]
         public void Reels_same_order_three_Star_return_90()
         {
-            var reel = GetReelItems();
-            _reelItems = new List<ReelItem[]> { reel, reel, reel };
             _spinIndexes = new[] { 1, 1, 1 };
-
             GameResultShouldBe(90);
         }
 
