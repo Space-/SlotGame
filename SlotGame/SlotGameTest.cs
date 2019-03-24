@@ -7,6 +7,9 @@ namespace SlotGameTest.cs
 {
     public class SlotGameTest
     {
+        private static List<ReelItem[]> _reelItems;
+        private static int[] _spinIndexes;
+
         [SetUp]
         public void SetUp()
         {
@@ -15,31 +18,27 @@ namespace SlotGameTest.cs
         [Test]
         public void Reels_same_order_three_Wild_return_100()
         {
-            var slotMachine = new SlotMachine();
-
             var reel = GetReelItems();
+            _reelItems = new List<ReelItem[]> { reel, reel, reel };
+            _spinIndexes = new[] { 0, 0, 0 };
 
-            var reelItems = new List<ReelItem[]> { reel, reel, reel };
-            int[] spinIndexes = { 0, 0, 0 };
-
-            GameResultShouldBe(100, reelItems, spinIndexes);
+            GameResultShouldBe(100);
         }
 
         [Test]
         public void Reels_same_order_three_Star_return_90()
         {
             var reel = GetReelItems();
+            _reelItems = new List<ReelItem[]> { reel, reel, reel };
+            _spinIndexes = new[] { 1, 1, 1 };
 
-            var reelItems = new List<ReelItem[]> { reel, reel, reel };
-            int[] spinIndexes = { 1, 1, 1 };
-
-            GameResultShouldBe(90, reelItems, spinIndexes);
+            GameResultShouldBe(90);
         }
 
-        private static void GameResultShouldBe(int expected, List<ReelItem[]> reelItems, int[] spinIndexes)
+        private static void GameResultShouldBe(int expected)
         {
             var slotMachine = new SlotMachine();
-            var slotScore = slotMachine.GetSlotScore(reelItems, spinIndexes);
+            var slotScore = slotMachine.GetSlotScore(_reelItems, _spinIndexes);
             Assert.AreEqual(expected, slotScore);
         }
 
