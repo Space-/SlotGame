@@ -28,24 +28,24 @@ namespace SlotGameTest.cs
 
         private static int GetPrizeScore(List<ReelItem> slotReelItems)
         {
-            //            var oneDiffItemInX = slotReelItems
-            //                .GroupBy(v => v)
-            //                .Select(item => new { ItemName = item, Cnt = item.Count() }).ToList();
-            //
-            //            for (var i = 0; i < oneDiffItemInX.Count; i++)
-            //            {
-            //                var item = oneDiffItemInX[i].ItemName;
-            //                var cnt = oneDiffItemInX[i].Cnt;
-            //
-            //                // this item only one, and not 'Wild', replace it as 'ReelItem.NoThisItem;'
-            //                if (cnt == 1 && item.ToString() != ReelItem.Wild.ToString())
-            //                {
-            //                    for (var j = 0; j < slotReelItems.Count; j++)
-            //                    {
-            //                        slotReelItems[j] = ReelItem.NoThisItem;
-            //                    }
-            //                }
-            //            }
+            var oneDiffItemInX = slotReelItems
+                .GroupBy(v => v)
+                .Select(item => new { ItemName = item.Key, Cnt = item.Count() }).ToList();
+
+            for (var i = 0; i < oneDiffItemInX.Count; i++)
+            {
+                var item = oneDiffItemInX[i].ItemName;
+                var cnt = oneDiffItemInX[i].Cnt;
+
+                // this item only one, and not 'Wild', replace it as 'ReelItem.NoThisItem;'
+                if (cnt == 1 && item.ToString() != ReelItem.Wild.ToString())
+                {
+                    for (var j = 0; j < slotReelItems.Count; j++)
+                    {
+                        slotReelItems[j] = ReelItem.NoThisItem;
+                    }
+                }
+            }
 
             const int itemRepeatTimes = 3;
             var prizePool = new Dictionary<List<ReelItem>, int>(new ListComparer<ReelItem>())
@@ -71,7 +71,7 @@ namespace SlotGameTest.cs
                 {new List<ReelItem>(){ReelItem.Queen, ReelItem.Queen, ReelItem.Wild},  4},
                 {new List<ReelItem>(){ReelItem.Jack, ReelItem.Jack, ReelItem.Wild},  2},
 
-//                { new List<ReelItem>(){ReelItem.Wild, ReelItem.Wild, ReelItem.NoThisItem},  10},
+                { new List<ReelItem>(){ReelItem.Wild, ReelItem.Wild, ReelItem.NoThisItem},  10},
             };
 
             return prizePool[slotReelItems];
