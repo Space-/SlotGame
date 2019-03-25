@@ -28,21 +28,23 @@ namespace SlotGameTest.cs
 
         private static int GetPrizeScore(List<ReelItem> slotReelItems)
         {
-            var oneDiffItemInX = slotReelItems
+            var itemGroupList = slotReelItems
                 .GroupBy(v => v)
                 .Select(item => new { ItemName = item.Key, Cnt = item.Count() }).ToList();
 
-            for (var i = 0; i < oneDiffItemInX.Count; i++)
+            foreach (var theItem in itemGroupList)
             {
-                var item = oneDiffItemInX[i].ItemName;
-                var cnt = oneDiffItemInX[i].Cnt;
+                var item = theItem.ItemName;
+                var cnt = theItem.Cnt;
 
-                // this item only one, and not 'Wild', replace it as 'ReelItem.NoThisItem;'
-                if (cnt == 1 && item.ToString() != ReelItem.Wild.ToString())
+                if (cnt == 1 && item != ReelItem.Wild)
                 {
-                    for (var j = 0; j < slotReelItems.Count; j++)
+                    for (var i = 0; i < slotReelItems.Count; i++)
                     {
-                        slotReelItems[j] = ReelItem.NoThisItem;
+                        if (slotReelItems[i] == item)
+                        {
+                            slotReelItems[i] = ReelItem.NoThisItem;
+                        }
                     }
                 }
             }
