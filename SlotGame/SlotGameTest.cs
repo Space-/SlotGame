@@ -250,6 +250,13 @@ namespace SlotGameTest.cs
             Assert.AreEqual(1, slotScore);
         }
 
+        [Test]
+        public void Reels_same_order_no_this_prize_Case1_one_Jack_one_Wild_one_Star_return_0()
+        {
+            _spinIndexes = new[] { (int)ReelItem.Jack, (int)ReelItem.Wild, (int)ReelItem.Star };
+            GameResultShouldBe(0);
+        }
+
         private static void GameResultShouldBe(int expected)
         {
             var slotMachine = new SlotMachine();

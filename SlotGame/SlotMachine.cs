@@ -37,13 +37,14 @@ namespace SlotGameTest.cs
                 return slotReelItems;
             }
 
+            var isAllItemOnlyOne = itemGroupList.All(slotItem => slotItem.Cnt == 1);
             foreach (var theItem in itemGroupList)
             {
                 var item = theItem.ItemName;
                 var cnt = theItem.Cnt;
-                var isItemOnlyOneAndNotWild = (cnt == 1 && item != ReelItem.Wild);
+                var isItemOnlyOneAndNotWild = (cnt == 1 && itemGroupList.Max(i => i.Cnt) == 2 && item != ReelItem.Wild);
 
-                if (isItemOnlyOneAndNotWild)
+                if (isAllItemOnlyOne || isItemOnlyOneAndNotWild)
                 {
                     slotReelItems[slotReelItems.FindIndex(index => index.Equals(item))] = ReelItem.NoThisItem;
                 }
@@ -90,6 +91,8 @@ namespace SlotGameTest.cs
                 { new List<ReelItem>(){ReelItem.King, ReelItem.King, ReelItem.NoThisItem},  3},
                 { new List<ReelItem>(){ReelItem.Queen, ReelItem.Queen, ReelItem.NoThisItem},  2},
                 { new List<ReelItem>(){ReelItem.Jack, ReelItem.Jack, ReelItem.NoThisItem},  1},
+
+                { new List<ReelItem>(){ReelItem.NoThisItem, ReelItem.NoThisItem, ReelItem.NoThisItem},  0}
             };
 
             return prizePool[slotReelItems];
