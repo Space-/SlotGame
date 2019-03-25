@@ -220,6 +220,36 @@ namespace SlotGameTest.cs
             GameResultShouldBe(1);
         }
 
+        [Test]
+        public void Reels_different_order_two_Jack_one_other_return_1()
+        {
+            var reel1 = new ReelItem[]
+            {
+                ReelItem.Wild, ReelItem.Star, ReelItem.Bell, ReelItem.Shell, ReelItem.Seven,
+                ReelItem.Cherry, ReelItem.Bar, ReelItem.King, ReelItem.Queen, ReelItem.Jack
+            };
+
+            var reel2 = new ReelItem[]
+            {
+                ReelItem.Jack, ReelItem.Wild, ReelItem.Star, ReelItem.Bell, ReelItem.Shell,
+                ReelItem.Seven, ReelItem.Cherry, ReelItem.Bar, ReelItem.King, ReelItem.Queen,
+            };
+
+            var reel3 = new ReelItem[]
+            {
+                ReelItem.Cherry, ReelItem.Bar, ReelItem.King, ReelItem.Queen, ReelItem.Jack,
+                ReelItem.Wild, ReelItem.Star, ReelItem.Bell, ReelItem.Shell, ReelItem.Seven
+            };
+
+            var threeDiffReelItems = new List<ReelItem[]> { reel1, reel2, reel3 };
+
+            _spinIndexes = new[] { Array.IndexOf(reel1, ReelItem.Jack), Array.IndexOf(reel2, ReelItem.Jack), Array.IndexOf(reel3, ReelItem.Star) };
+
+            var slotMachine = new SlotMachine();
+            var slotScore = slotMachine.GetSlotScore(threeDiffReelItems, _spinIndexes);
+            Assert.AreEqual(1, slotScore);
+        }
+
         private static void GameResultShouldBe(int expected)
         {
             var slotMachine = new SlotMachine();
