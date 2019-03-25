@@ -26,28 +26,35 @@ namespace SlotGameTest.cs
             return getSlotResultItems;
         }
 
-        private static int GetPrizeScore(List<ReelItem> slotReelItems)
+        private static List<ReelItem> GetPrizeFilterReelItems(List<ReelItem> slotReelItems)
         {
-            var itemGroupList = slotReelItems
-                .GroupBy(v => v)
-                .Select(item => new { ItemName = item.Key, Cnt = item.Count() }).ToList();
+            var itemGroupList = slotReelItems.GroupBy(v => v).Select(item => new { ItemName = item.Key, Cnt = item.Count() }).ToList();
+            const int maxSameReelItemNum = 3;
+            var isAllSameItems = itemGroupList.Any(item => item.Cnt == maxSameReelItemNum);
+
+            if (isAllSameItems)
+            {
+                return slotReelItems;
+            }
 
             foreach (var theItem in itemGroupList)
             {
                 var item = theItem.ItemName;
                 var cnt = theItem.Cnt;
+                var isItemOnlyOneAndNotWild = (cnt == 1 && item != ReelItem.Wild);
 
-                if (cnt == 1 && item != ReelItem.Wild)
+                if (isItemOnlyOneAndNotWild)
                 {
-                    for (var i = 0; i < slotReelItems.Count; i++)
-                    {
-                        if (slotReelItems[i] == item)
-                        {
-                            slotReelItems[i] = ReelItem.NoThisItem;
-                        }
-                    }
+                    slotReelItems[slotReelItems.FindIndex(index => index.Equals(item))] = ReelItem.NoThisItem;
                 }
             }
+
+            return slotReelItems;
+        }
+
+        private static int GetPrizeScore(List<ReelItem> slotReelItems)
+        {
+            slotReelItems = GetPrizeFilterReelItems(slotReelItems);
 
             const int itemRepeatTimes = 3;
             var prizePool = new Dictionary<List<ReelItem>, int>(new ListComparer<ReelItem>())
