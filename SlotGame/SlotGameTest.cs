@@ -244,10 +244,7 @@ namespace SlotGameTest.cs
             var threeDiffReelItems = new List<ReelItem[]> { reel1, reel2, reel3 };
 
             _spinIndexes = new[] { Array.IndexOf(reel1, ReelItem.Jack), Array.IndexOf(reel2, ReelItem.Jack), Array.IndexOf(reel3, ReelItem.Star) };
-
-            var slotMachine = new SlotMachine();
-            var slotScore = slotMachine.GetSlotScore(threeDiffReelItems, _spinIndexes);
-            Assert.AreEqual(1, slotScore);
+            GameResultShouldBe(1, threeDiffReelItems);
         }
 
         [Test]
@@ -262,6 +259,13 @@ namespace SlotGameTest.cs
         {
             _spinIndexes = new[] { (int)ReelItem.Star, (int)ReelItem.Bell, (int)ReelItem.Shell };
             GameResultShouldBe(0);
+        }
+
+        private static void GameResultShouldBe(int expected, List<ReelItem[]> reelItems)
+        {
+            var slotMachine = new SlotMachine();
+            var slotScore = slotMachine.GetSlotScore(reelItems, _spinIndexes);
+            Assert.AreEqual(expected, slotScore);
         }
 
         private static void GameResultShouldBe(int expected)
