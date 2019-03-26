@@ -29,7 +29,7 @@ namespace SlotGameTest.cs
         private static List<ReelItem> GetPrizeFilterReelItems(List<ReelItem> slotReelItems)
         {
             var itemGroupList = slotReelItems.GroupBy(v => v).Select(item => new { ItemName = item.Key, Cnt = item.Count() }).ToList();
-            const int maxSameReelItemNum = 3;
+            var maxSameReelItemNum = slotReelItems.Count;
             var isAllSameItems = itemGroupList.Any(item => item.Cnt == maxSameReelItemNum);
             var isAllItemOnlyOne = itemGroupList.All(slotItem => slotItem.Cnt == 1);
 
