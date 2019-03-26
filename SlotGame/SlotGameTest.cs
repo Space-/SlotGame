@@ -261,17 +261,20 @@ namespace SlotGameTest.cs
             GameResultShouldBe(0);
         }
 
-        private static void GameResultShouldBe(int expected, List<ReelItem[]> reelItems)
+        private static void GameResultShouldBe(int expected)
+        {
+            ValidateResult(expected, _threeSameReelItems);
+        }
+
+        private static void GameResultShouldBe(int expected, List<ReelItem[]> threeDiffReelItems)
+        {
+            ValidateResult(expected, threeDiffReelItems);
+        }
+
+        private static void ValidateResult(int expected, List<ReelItem[]> reelItems)
         {
             var slotMachine = new SlotMachine();
             var slotScore = slotMachine.GetSlotScore(reelItems, _spinIndexes);
-            Assert.AreEqual(expected, slotScore);
-        }
-
-        private static void GameResultShouldBe(int expected)
-        {
-            var slotMachine = new SlotMachine();
-            var slotScore = slotMachine.GetSlotScore(_threeSameReelItems, _spinIndexes);
             Assert.AreEqual(expected, slotScore);
         }
 
