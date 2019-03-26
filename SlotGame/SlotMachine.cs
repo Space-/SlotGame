@@ -31,20 +31,26 @@ namespace SlotGameTest.cs
             var itemGroupList = slotReelItems.GroupBy(v => v).Select(item => new { ItemName = item.Key, Cnt = item.Count() }).ToList();
             const int maxSameReelItemNum = 3;
             var isAllSameItems = itemGroupList.Any(item => item.Cnt == maxSameReelItemNum);
+            var isAllItemOnlyOne = itemGroupList.All(slotItem => slotItem.Cnt == 1);
 
             if (isAllSameItems)
             {
                 return slotReelItems;
             }
 
-            var isAllItemOnlyOne = itemGroupList.All(slotItem => slotItem.Cnt == 1);
+            if (isAllItemOnlyOne)
+            {
+                return Enumerable.Repeat(ReelItem.NoThisItem, slotReelItems.Count).ToList();
+            }
+
+            // replace some items to match prize in prize pool
             foreach (var theItem in itemGroupList)
             {
                 var item = theItem.ItemName;
                 var cnt = theItem.Cnt;
-                var isItemOnlyOneAndNotWild = (cnt == 1 && itemGroupList.Max(i => i.Cnt) == 2 && item != ReelItem.Wild);
+                var isItemOnlyOneAndNotWild = (cnt == 1 && item != ReelItem.Wild);
 
-                if (isAllItemOnlyOne || isItemOnlyOneAndNotWild)
+                if (isItemOnlyOneAndNotWild)
                 {
                     slotReelItems[slotReelItems.FindIndex(index => index.Equals(item))] = ReelItem.NoThisItem;
                 }
