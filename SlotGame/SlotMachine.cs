@@ -15,15 +15,7 @@ namespace SlotGameTest.cs
 
         private static List<ReelItem> GetSlotResultItems(List<ReelItem[]> reelItems, int[] spinIndexes)
         {
-            var slotResultItems = new List<ReelItem>();
-            for (var reelNum = 0; reelNum < spinIndexes.Length; reelNum++)
-            {
-                var spinItemIndex = spinIndexes[reelNum];
-                var reelItem = reelItems[reelNum][spinItemIndex];
-                slotResultItems.Add(reelItem);
-            }
-
-            return slotResultItems;
+            return spinIndexes.Select((spinItemIndex, reelNum) => reelItems[reelNum][spinItemIndex]).ToList();
         }
 
         private static List<ReelItem> GetPrizeFilterReelItems(List<ReelItem> slotReelItems)
