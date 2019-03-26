@@ -287,7 +287,7 @@ namespace SlotGameTest.cs
         private static int[] GetIndexesArrayFromSameKey(ReelItem item)
         {
             var itemIndexInReel = Array.IndexOf(_reel, item);
-            const int totalNumOfReels = 3;
+            var totalNumOfReels = _threeSameReelItems.Count;
             return Enumerable.Repeat(itemIndexInReel, totalNumOfReels).ToArray();
         }
     }
