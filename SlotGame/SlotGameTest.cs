@@ -9,19 +9,27 @@ namespace SlotGameTest.cs
     {
         private static List<ReelItem[]> _threeSameReelItems;
         private static int[] _spinIndexes;
+        private static ReelItem[] _reel;
 
         [SetUp]
         public void InitSlotMachineReels()
         {
-            var reel = GetReelItems();
-            _threeSameReelItems = new List<ReelItem[]> { reel, reel, reel };
+            _reel = GetReelItems();
+            _threeSameReelItems = new List<ReelItem[]> { _reel, _reel, _reel };
         }
 
         [Test]
         public void Reels_same_order_three_Wild_return_100()
         {
-            _spinIndexes = new[] { 0, 0, 0 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Wild);
             GameResultShouldBe(100);
+        }
+
+        private static int[] GetIndexesArrayFromSameKey(ReelItem item)
+        {
+            var itemIndexInReel = Array.IndexOf(_reel, item);
+            const int totalNumOfReels = 3;
+            return Enumerable.Repeat(itemIndexInReel, totalNumOfReels).ToArray();
         }
 
         [Test]
