@@ -25,73 +25,66 @@ namespace SlotGameTest.cs
             GameResultShouldBe(100);
         }
 
-        private static int[] GetIndexesArrayFromSameKey(ReelItem item)
-        {
-            var itemIndexInReel = Array.IndexOf(_reel, item);
-            const int totalNumOfReels = 3;
-            return Enumerable.Repeat(itemIndexInReel, totalNumOfReels).ToArray();
-        }
-
         [Test]
         public void Reels_same_order_three_Star_return_90()
         {
-            _spinIndexes = new[] { 1, 1, 1 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Star);
             GameResultShouldBe(90);
         }
 
         [Test]
         public void Reels_same_order_three_Bell_return_80()
         {
-            _spinIndexes = new[] { 2, 2, 2 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Bell);
             GameResultShouldBe(80);
         }
 
         [Test]
         public void Reels_same_order_three_Shell_return_70()
         {
-            _spinIndexes = new[] { 3, 3, 3 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Shell);
             GameResultShouldBe(70);
         }
 
         [Test]
         public void Reels_same_order_three_Seven_return_60()
         {
-            _spinIndexes = new[] { 4, 4, 4 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Seven);
             GameResultShouldBe(60);
         }
 
         [Test]
         public void Reels_same_order_three_Cherry_return_50()
         {
-            _spinIndexes = new[] { 5, 5, 5 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Cherry);
             GameResultShouldBe(50);
         }
 
         [Test]
         public void Reels_same_order_three_Bar_return_40()
         {
-            _spinIndexes = new[] { 6, 6, 6 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Bar);
             GameResultShouldBe(40);
         }
 
         [Test]
         public void Reels_same_order_three_King_return_30()
         {
-            _spinIndexes = new[] { 7, 7, 7 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.King);
             GameResultShouldBe(30);
         }
 
         [Test]
         public void Reels_same_order_three_Queen_return_20()
         {
-            _spinIndexes = new[] { 8, 8, 8 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Queen);
             GameResultShouldBe(20);
         }
 
         [Test]
-        public void Reels_same_order_three_Queen_return_10()
+        public void Reels_same_order_three_Jack_return_10()
         {
-            _spinIndexes = new[] { 9, 9, 9 };
+            _spinIndexes = GetIndexesArrayFromSameKey(ReelItem.Jack);
             GameResultShouldBe(10);
         }
 
@@ -289,6 +282,13 @@ namespace SlotGameTest.cs
         private static ReelItem[] GetReelItems()
         {
             return Enum.GetValues(typeof(ReelItem)).Cast<ReelItem>().ToArray();
+        }
+
+        private static int[] GetIndexesArrayFromSameKey(ReelItem item)
+        {
+            var itemIndexInReel = Array.IndexOf(_reel, item);
+            const int totalNumOfReels = 3;
+            return Enumerable.Repeat(itemIndexInReel, totalNumOfReels).ToArray();
         }
     }
 }
