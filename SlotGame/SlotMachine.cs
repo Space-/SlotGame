@@ -20,7 +20,7 @@ namespace SlotGameTest.cs
 
         private static List<ReelItem> GetPrizeFilterReelItems(List<ReelItem> slotReelItems)
         {
-            var itemGroupList = slotReelItems.GroupBy(v => v).Select(item => new { ItemName = item.Key, Cnt = item.Count() }).ToList();
+            var itemGroupList = slotReelItems.GroupBy(v => v).Select(item => new { Item = item.Key, Cnt = item.Count() }).ToList();
             var maxSameReelItemNum = slotReelItems.Count;
             var isAllSameItems = itemGroupList.Any(item => item.Cnt == maxSameReelItemNum);
             var isAllItemOnlyOne = itemGroupList.All(slotItem => slotItem.Cnt == 1);
@@ -38,11 +38,11 @@ namespace SlotGameTest.cs
             // replace some items to match prize in prize pool
             foreach (var theItem in itemGroupList)
             {
-                var isItemOnlyOneAndNotWild = (theItem.Cnt == 1 && theItem.ItemName != ReelItem.Wild);
+                var isItemOnlyOneAndNotWild = (theItem.Cnt == 1 && theItem.Item != ReelItem.Wild);
 
                 if (isItemOnlyOneAndNotWild)
                 {
-                    slotReelItems[slotReelItems.FindIndex(index => index.Equals(theItem.ItemName))] = ReelItem.NoThisItem;
+                    slotReelItems[slotReelItems.FindIndex(index => index.Equals(theItem.Item))] = ReelItem.NoThisItem;
                 }
             }
 
