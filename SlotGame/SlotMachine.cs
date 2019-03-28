@@ -38,13 +38,11 @@ namespace SlotGameTest.cs
             // replace some items to match prize in prize pool
             foreach (var theItem in itemGroupList)
             {
-                var item = theItem.ItemName;
-                var cnt = theItem.Cnt;
-                var isItemOnlyOneAndNotWild = (cnt == 1 && item != ReelItem.Wild);
+                var isItemOnlyOneAndNotWild = (theItem.Cnt == 1 && theItem.ItemName != ReelItem.Wild);
 
                 if (isItemOnlyOneAndNotWild)
                 {
-                    slotReelItems[slotReelItems.FindIndex(index => index.Equals(item))] = ReelItem.NoThisItem;
+                    slotReelItems[slotReelItems.FindIndex(index => index.Equals(theItem.ItemName))] = ReelItem.NoThisItem;
                 }
             }
 
